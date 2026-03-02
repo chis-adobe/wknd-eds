@@ -36,7 +36,8 @@ export default function decorate(block) {
   
   if (buttonContainer) {
     // Add the CTA style class to the button container
-    buttonContainer.classList.add(`cta-${ctaStyle} custom-ac`);
+    buttonContainer.classList.add(`cta-${ctaStyle}`);
+    buttonContainer.classList.add('custom-ac');
   }
   
   // Hide the CTA style configuration paragraph
