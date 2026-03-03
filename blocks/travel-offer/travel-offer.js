@@ -15,8 +15,12 @@ export default async function decorate(block) {
   const isAuthor = isAuthorEnvironment();
 
   const linkEl = block.querySelector(':scope div:nth-child(1) > div a');
-  const contentPath = linkEl?.getAttribute('href') || linkEl?.textContent?.trim()
+  let contentPath = linkEl?.getAttribute('href') || linkEl?.textContent?.trim()
     || block.querySelector(':scope div:nth-child(1) > div')?.textContent?.trim();
+
+  if (contentPath) {
+    contentPath = contentPath.replace(/(\.plain)?\.html$/i, '');
+  }
 
   if (!contentPath) {
     console.error('Travel Offer: Missing content fragment path');
