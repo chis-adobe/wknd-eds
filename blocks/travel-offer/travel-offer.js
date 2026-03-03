@@ -25,7 +25,7 @@ export default async function decorate(block) {
   }
 
   const baseUrl = isAuthor ? aemauthorurl : aempublishurl;
-  const url = `${baseUrl}${GRAPHQL_QUERY};path=${encodeURIComponent(contentPath)};ts=${Date.now()}`;
+  const url = `${baseUrl}${GRAPHQL_QUERY};path=${contentPath};ts=${Date.now()}`;
 
   try {
     const response = await fetch(url, {
