@@ -607,9 +607,9 @@
     "id": "traveloffer",
     "fields": [
       {
-        "component": "aem-content-fragment",
+        "component": "aem-content",
         "name": "reference",
-        "label": "Content Fragment Path",
+        "label": "Travel Offer Path",
         "valueType": "string",
         "required": true,
         "validation": {
