@@ -14,13 +14,7 @@ export default async function decorate(block) {
   const aempublishurl = hostname?.replace('author', 'publish')?.replace(/\/$/, '');
   const isAuthor = isAuthorEnvironment();
 
-  const linkEl = block.querySelector(':scope div:nth-child(1) > div a');
-  let contentPath = linkEl?.getAttribute('href') || linkEl?.textContent?.trim()
-    || block.querySelector(':scope div:nth-child(1) > div')?.textContent?.trim();
-
-  if (contentPath) {
-    contentPath = contentPath.replace(/(\.plain)?\.html$/i, '');
-  }
+  const contentPath = block.querySelector('p.button-container > a')?.textContent?.trim();
 
   if (!contentPath) {
     console.error('Travel Offer: Missing content fragment path');
