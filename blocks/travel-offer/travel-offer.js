@@ -2,7 +2,7 @@ import { getMetadata } from '../../scripts/aem.js';
 import { isAuthorEnvironment } from '../../scripts/scripts.js';
 import { getHostname } from '../../scripts/utils.js';
 
-const GRAPHQL_QUERY = '/graphql/execute.json/aircanada/GetFlightOffersByDestination';
+const GRAPHQL_QUERY = '/graphql/execute.json/aircanada/GetFlightOfferByPath';
 
 /**
  * @param {HTMLElement} block
@@ -25,7 +25,7 @@ export default async function decorate(block) {
   }
 
   const baseUrl = isAuthor ? aemauthorurl : aempublishurl;
-  const url = `${baseUrl}${GRAPHQL_QUERY};dest=${encodeURIComponent(contentPath)};ts=${Date.now()}`;
+  const url = `${baseUrl}${GRAPHQL_QUERY};path=${encodeURIComponent(contentPath)};ts=${Date.now()}`;
 
   try {
     const response = await fetch(url, {
@@ -40,14 +40,12 @@ export default async function decorate(block) {
     }
 
     const json = await response.json();
-    const items = json?.data?.flightOfferList?.items;
+    const offer = json?.data?.flightOfferByPath?.item;
 
-    if (!items || !items.length) {
+    if (!offer) {
       block.innerHTML = '';
       return;
     }
-
-    const offer = items[0];
     const bannerUrl = offer.bannerPath?._dynamicUrl;
     const imgUrl = bannerUrl?.startsWith('http')
       ? bannerUrl
