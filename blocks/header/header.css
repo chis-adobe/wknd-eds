@@ -199,6 +199,10 @@ header nav[aria-expanded='true'] .nav-sections {
   justify-content: center;
 }
 
+header nav .nav-sections .default-content-wrapper > a {
+  display: flex;
+}
+
 header nav .nav-sections ul {
   list-style: none;
   padding-left: 0;
