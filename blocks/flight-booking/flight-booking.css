@@ -1,9 +1,4 @@
 /* Flight booking static block */
-main > .flight-booking-container {
-  padding-top: 95px;
-  background-color: black;
-}
-
 .flight-booking-container .flight-booking-wrapper {
   max-width: unset;
   padding: 0;
