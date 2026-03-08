@@ -653,7 +653,7 @@ main > .section > div {
   padding: 0 24px;
 }
 
-main > .section:first-of-type {
+main:not([data-aue-type="container"]) > .section:first-of-type {
   margin-top: 0;
   padding-top: 95px !important;
   background-color: black !important;
