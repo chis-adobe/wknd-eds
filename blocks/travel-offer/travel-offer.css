@@ -1,3 +1,7 @@
+/* Import promo-banner from component library - updates reflect when you run npm install */
+@import url('./ac-promo-banner.css');
+
+/* Travel offer overrides - max-width 542px */
 .travel-offer-container .travel-offer-wrapper {
   width: 100%;
   max-width: 542px;
@@ -9,51 +13,6 @@
   width: 100%;
 }
 
-.travel-offer .travel-offer-content {
-  position: relative;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  border-radius: 8px;
-}
-
-.travel-offer .travel-offer-banner {
-  width: 100%;
-  height: auto;
-  display: block;
-  vertical-align: middle;
-}
-
-.travel-offer .travel-offer-detail {
-  padding: 2rem;
-  background: var(--background-color, #fff);
-  color: var(--text-color, #333);
-}
-
-.travel-offer .travel-offer-title {
-  margin: 0 0 1rem;
-  font-size: 1.75rem;
-  line-height: 1.3;
-  font-family: var(--heading-font-family);
-}
-
-.travel-offer .travel-offer-description {
-  margin: 0 0 1rem;
-  font-size: 1rem;
-  line-height: 1.5;
-}
-
-.travel-offer .travel-offer-description p {
-  margin: 0 0 0.5rem;
-}
-
-.travel-offer .travel-offer-book-by {
-  margin: 0 0 1rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
-.travel-offer .travel-offer-detail .button-container {
-  margin: 1rem 0 0;
+.travel-offer-container .ac-promo-banner__container {
+  max-width: 542px;
 }

@@ -7,3 +7,7 @@ helix-importer-ui
 .DS_Store
 *.bak
 .idea
+
+# Generated from @ac-comp-lib/component-library (run npm install to regenerate)
+blocks/travel-offer/ac-promo-banner.css
+blocks/travel-offer/ac-promo-banner-template.js

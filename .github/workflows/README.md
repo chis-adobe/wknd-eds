@@ -1,4 +1,19 @@
-# Template Sync Workflows
+# GitHub Actions Workflows
+
+## Update Component Library
+**File:** `update-component-library.yml`
+
+Updates `@ac-comp-lib/component-library` to the latest version and creates a PR when changes are found.
+
+**Triggers:**
+- **Schedule:** Daily at 9:00 AM UTC
+- **Manual:** Actions tab → "Update Component Library" → "Run workflow"
+
+**Use when:** The component library has published a new version but this project hasn't changed. Run manually or wait for the daily schedule to pick it up.
+
+---
+
+## Template Sync Workflows
 
 This repository includes **two workflows** for syncing with the main template repository (`AEMXSC/RefDemoEDS`):
 

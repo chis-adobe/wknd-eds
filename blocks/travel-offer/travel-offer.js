@@ -1,8 +1,76 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { isAuthorEnvironment } from '../../scripts/scripts.js';
 import { getHostname } from '../../scripts/utils.js';
+import { template } from './ac-promo-banner-template.js';
 
 const GRAPHQL_QUERY = '/graphql/execute.json/aircanada/GetFlightOfferByPath';
+
+/**
+ * Populates the promo-banner template with offer data.
+ * @param {string} html - Template HTML from component library
+ * @param {Object} offer - Offer data from GraphQL
+ * @param {string|null} imgUrl - Banner image URL
+ * @param {string} ctaUrl - CTA link URL
+ * @returns {string} Populated HTML
+ */
+function populateTemplate(html, offer, imgUrl, ctaUrl) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+  const section = doc.querySelector('.ac-promo-banner');
+  if (!section) return html;
+
+  const img = section.querySelector('.ac-promo-banner__card-img');
+  if (img) {
+    if (imgUrl) {
+      img.src = imgUrl;
+    } else {
+      img.remove();
+    }
+  }
+
+  const badge = section.querySelector('.ac-promo-banner__badge');
+  if (badge) badge.remove();
+
+  const headline = section.querySelector('.ac-promo-banner__headline');
+  if (headline) headline.textContent = offer.offerTitle || '';
+
+  const description = section.querySelector('.ac-promo-banner__description');
+  if (description) {
+    if (offer.offerDescription?.html) {
+      const div = doc.createElement('div');
+      div.className = 'ac-promo-banner__description';
+      div.innerHTML = offer.offerDescription.html;
+      description.replaceWith(div);
+    } else {
+      description.remove();
+    }
+  }
+
+  const dates = section.querySelector('.ac-promo-banner__dates');
+  if (dates) {
+    if (offer.bookBy) {
+      const bookBy = dates.querySelector('.ac-promo-banner__date');
+      if (bookBy) {
+        const value = bookBy.querySelector('.ac-promo-banner__date-value');
+        if (value) value.textContent = offer.bookBy;
+      }
+      const sep = dates.querySelector('.ac-promo-banner__date-sep');
+      const travelBy = dates.querySelectorAll('.ac-promo-banner__date')[1];
+      if (sep) sep.remove();
+      if (travelBy) travelBy.remove();
+    } else {
+      dates.remove();
+    }
+  }
+
+  const cta = section.querySelector('.ac-promo-banner__cta-btn');
+  if (cta) {
+    cta.href = ctaUrl;
+    cta.textContent = offer.ctaLabel || 'Book now';
+  }
+
+  return section.outerHTML;
+}
 
 /**
  * @param {HTMLElement} block
@@ -61,19 +129,7 @@ export default async function decorate(block) {
     }
     const ctaUrl = offer.ctaUrl?._publishUrl || offer.ctaUrl?._authorUrl || '#';
 
-    block.innerHTML = `
-      <div class="travel-offer-content">
-        ${imgUrl ? `<img class="travel-offer-banner" src="${imgUrl}" alt="" />` : ''}
-        <div class="travel-offer-detail">
-          <h2 class="travel-offer-title">${offer.offerTitle || ''}</h2>
-          ${offer.offerDescription?.html ? `<div class="travel-offer-description">${offer.offerDescription.html}</div>` : ''}
-          ${offer.bookBy ? `<p class="travel-offer-book-by">Book by ${offer.bookBy}</p>` : ''}
-          <p class="button-container">
-            <a href="${ctaUrl}" class="button" target="_blank" rel="noopener">${offer.ctaLabel || 'Book now'}</a>
-          </p>
-        </div>
-      </div>
-    `;
+    block.innerHTML = populateTemplate(template, offer, imgUrl, ctaUrl);
   } catch (error) {
     console.error('Travel Offer: Error fetching or rendering offer', error);
     block.innerHTML = '';
