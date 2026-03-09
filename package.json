@@ -15,8 +15,7 @@
     "build:json:definitions": "merge-json-cli -i \"models/_component-definition.json\" -o \"component-definition.json\"",
     "build:json:filters": "merge-json-cli -i \"models/_component-filters.json\" -o \"component-filters.json\"",
     "prepare": "husky",
-    "postinstall": "node scripts/copy-promo-banner.js",
-    "update:component-library": "npm update @ac-comp-lib/component-library && node scripts/copy-promo-banner.js"
+    "update:component-library": "npm update @ac-comp-lib/component-library"
   },
   "repository": {
     "type": "git",

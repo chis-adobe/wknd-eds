@@ -1,5 +1,5 @@
-/* Import promo-banner from component library - updates reflect when you run npm install */
-@import url('./ac-promo-banner.css');
+/* Load from component library CDN - no local files needed */
+@import url('https://unpkg.com/@ac-comp-lib/component-library/dist/promo-banner.css');
 
 /* Travel offer overrides - max-width 542px */
 .travel-offer-container .travel-offer-wrapper {

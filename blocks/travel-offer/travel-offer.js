@@ -1,9 +1,9 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { isAuthorEnvironment } from '../../scripts/scripts.js';
 import { getHostname } from '../../scripts/utils.js';
-import { template } from './ac-promo-banner-template.js';
 
 const GRAPHQL_QUERY = '/graphql/execute.json/aircanada/GetFlightOfferByPath';
+const TEMPLATE_URL = 'https://unpkg.com/@ac-comp-lib/component-library/templates/promo-banner.html';
 
 /**
  * Populates the promo-banner template with offer data.
@@ -129,6 +129,8 @@ export default async function decorate(block) {
     }
     const ctaUrl = offer.ctaUrl?._publishUrl || offer.ctaUrl?._authorUrl || '#';
 
+    const templateRes = await fetch(`${TEMPLATE_URL}?ts=${Date.now()}`);
+    const template = await templateRes.text();
     block.innerHTML = populateTemplate(template, offer, imgUrl, ctaUrl);
   } catch (error) {
     console.error('Travel Offer: Error fetching or rendering offer', error);
