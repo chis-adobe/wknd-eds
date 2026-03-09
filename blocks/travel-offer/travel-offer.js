@@ -44,12 +44,21 @@ export default async function decorate(block) {
       block.innerHTML = '';
       return;
     }
-    const bannerUrl = offer.bannerPath?._dynamicUrl;
-    const imgUrl = bannerUrl?.startsWith('http')
-      ? bannerUrl
-      : bannerUrl && aempublishurl
-        ? `${aempublishurl}${bannerUrl}`
-        : null;
+
+    const dmS7Url = offer.bannerPath?._dmS7Url;
+    let imgUrl = null;
+    if (dmS7Url) {
+      const smartCrops = offer.bannerPath?._smartCrops || [];
+      const screenWidth = typeof window !== 'undefined' ? window.innerWidth : 1200;
+      let cropName = null;
+      if (smartCrops.length) {
+        const sorted = [...smartCrops].sort((a, b) => a.width - b.width);
+        const best = sorted.find((c) => c.width >= screenWidth) || sorted[sorted.length - 1];
+        cropName = best?.name;
+      }
+      imgUrl = cropName ? `${dmS7Url}:${cropName}` : dmS7Url;
+      imgUrl += (imgUrl.includes('?') ? '&' : '?') + `ts=${Date.now()}`;
+    }
     const ctaUrl = offer.ctaUrl?._publishUrl || offer.ctaUrl?._authorUrl || '#';
 
     block.innerHTML = `
