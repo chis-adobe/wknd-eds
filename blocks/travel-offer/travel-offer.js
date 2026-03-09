@@ -63,7 +63,7 @@ export default async function decorate(block) {
 
     block.innerHTML = `
       <div class="travel-offer-content">
-        ${imgUrl ? `<div class="travel-offer-banner" style="background-image: url(${imgUrl})"></div>` : ''}
+        ${imgUrl ? `<img class="travel-offer-banner" src="${imgUrl}" alt="" />` : ''}
         <div class="travel-offer-detail">
           <h2 class="travel-offer-title">${offer.offerTitle || ''}</h2>
           ${offer.offerDescription?.html ? `<div class="travel-offer-description">${offer.offerDescription.html}</div>` : ''}

@@ -20,9 +20,9 @@
 
 .travel-offer .travel-offer-banner {
   width: 100%;
-  min-height: 300px;
-  background-size: cover;
-  background-position: center;
+  height: auto;
+  display: block;
+  vertical-align: middle;
 }
 
 .travel-offer .travel-offer-detail {
