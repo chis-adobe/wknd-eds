@@ -1,10 +1,10 @@
 /* Load from component library CDN - no local files needed */
 @import url('https://unpkg.com/@ac-comp-lib/component-library/dist/promo-banner.css');
 
-/* Travel offer overrides - max-width 542px */
+/* Travel offer overrides - max-width 1136px */
 .travel-offer-container .travel-offer-wrapper {
   width: 100%;
-  max-width: 542px;
+  max-width: 1136px;
   margin: 0 auto;
   display: block;
 }
@@ -14,5 +14,5 @@
 }
 
 .travel-offer-container .ac-promo-banner__container {
-  max-width: 542px;
+  max-width: 1136px;
 }
