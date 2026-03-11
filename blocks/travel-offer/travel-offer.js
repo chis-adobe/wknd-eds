@@ -48,18 +48,31 @@ function populateTemplate(html, offer, imgUrl, ctaUrl) {
 
   const dates = section.querySelector('.ac-promo-banner__dates');
   if (dates) {
-    if (offer.bookBy) {
-      const bookBy = dates.querySelector('.ac-promo-banner__date');
-      if (bookBy) {
-        const value = bookBy.querySelector('.ac-promo-banner__date-value');
-        if (value) value.textContent = offer.bookBy;
-      }
-      const sep = dates.querySelector('.ac-promo-banner__date-sep');
-      const travelBy = dates.querySelectorAll('.ac-promo-banner__date')[1];
-      if (sep) sep.remove();
-      if (travelBy) travelBy.remove();
-    } else {
+    const hasBookBy = !!offer.bookBy;
+    const hasTravelBy = !!offer.travelBy;
+    if (!hasBookBy && !hasTravelBy) {
       dates.remove();
+    } else {
+      const dateEls = dates.querySelectorAll('.ac-promo-banner__date');
+      const sep = dates.querySelector('.ac-promo-banner__date-sep');
+      const formatDateDisplay = (isoStr) => {
+        if (!isoStr) return '';
+        const d = new Date(isoStr);
+        return Number.isNaN(d.getTime()) ? isoStr : d.toLocaleDateString('en', { month: 'short', day: 'numeric', year: 'numeric' });
+      };
+      if (dateEls[0]) {
+        const value = dateEls[0].querySelector('.ac-promo-banner__date-value');
+        if (value) value.textContent = hasBookBy ? formatDateDisplay(offer.bookBy) : '';
+        if (!hasBookBy) dateEls[0].remove();
+      }
+      if (sep) {
+        if (!hasBookBy || !hasTravelBy) sep.remove();
+      }
+      if (dateEls[1]) {
+        const value = dateEls[1].querySelector('.ac-promo-banner__date-value');
+        if (value) value.textContent = hasTravelBy ? formatDateDisplay(offer.travelBy) : '';
+        if (!hasTravelBy) dateEls[1].remove();
+      }
     }
   }
 
